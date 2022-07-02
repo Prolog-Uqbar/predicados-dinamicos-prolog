@@ -22,10 +22,8 @@ resetearEstadoDePachi :-
 test(gachi_planifica_viaje_con_otras_personas, set(Persona == [pachi])):-
   puedenPlanificarViaje(gachi, Persona).
 
-test(gachi_no_puede_planificar_viaje_si_no_comparte_gustos, nondet):-
-  cambiarPreferenciasAPachi,
-  not(puedenPlanificarViaje(gachi, pachi)),
-  resetearEstadoDePachi.
+test(gachi_no_puede_planificar_viaje_si_no_comparte_gustos, [ nondet, setup(cambiarPreferenciasAPachi), cleanup(resetearEstadoDePachi)]):-
+  not(puedenPlanificarViaje(gachi, pachi)).
 
 test(lugares_favoritos_de_pachi, set(Lugar = [rio, bariloche])):-
   quiereViajar(pachi, Lugar).
